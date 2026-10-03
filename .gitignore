@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+.npm/
+
+# Environment variables & secrets
+.env
+*.pem
+credentials.json
+token.json
+client_secret*.json
+
+# Local runtime databases & sandboxes
+*.db
+*.sqlite
+local_calendar.json
+local_email_drafts.json
+local_email_outbox.json
+
+# Logs & scratch
+*.log
+scratch/
+.pytest_cache/
+.coverage
+
+# IDE
+.vscode/
+.idea/
+.DS_Store

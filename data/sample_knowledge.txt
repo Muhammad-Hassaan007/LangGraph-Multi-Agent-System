@@ -1,0 +1,15 @@
+# SMIT University Course Information & Policies
+
+## Artificial Intelligence & Agentic AI Track
+The Agentic AI curriculum covers:
+1. Multi-Agent Architectures (Hierarchical Supervisor, Router, and Swarm networks).
+2. LangGraph state management, conditional branching, and checkpointing.
+3. Model Context Protocol (MCP) by Anthropic for standardized tool execution across remote clients.
+4. Production Vector Databases: Supabase PostgreSQL with the pgvector extension for similarity search.
+5. Autonomous Tool-Calling Agents: GitHub automation, Google Calendar scheduling, and Email handling.
+
+## Evaluation Criteria
+- Modularity and separation of concerns across sub-agents.
+- Real MCP tool invocation over JSON-RPC.
+- Effective vector indexing and semantic retrieval without using local single-file vector stores like ChromaDB or FAISS.
+- Clear state passing and supervisor routing decisions.
