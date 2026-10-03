@@ -213,9 +213,7 @@ export default function App() {
             .slice(-8)
             .map((m) => ({ role: m.role, content: m.content })),
         }),
-      });
-
-      const data = await responseData(res);
+      const data = await res.json();
 
       if (!res.ok) {
         throw new Error(data.detail || 'Failed to get answer from Multi-Agent System.');

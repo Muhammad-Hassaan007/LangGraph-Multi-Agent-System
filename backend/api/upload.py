@@ -63,7 +63,8 @@ async def upload_pdf(file: UploadFile = File(...)):
 
     # 3. Process and index into Supabase pgvector
     try:
-        result = process_and_index_pdf(file_bytes=content, filename=filename)
+        from fastapi.concurrency import run_in_threadpool
+        result = await run_in_threadpool(process_and_index_pdf, file_bytes=content, filename=filename)
         chunk_total = result.get("chunks", result.get("chunks_count", 0))
         return UploadResponse(
             success=True,

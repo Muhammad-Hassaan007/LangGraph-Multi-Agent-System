@@ -25,14 +25,30 @@ class GeminiEmbeddings(Embeddings):
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
         from google.genai import types
         results: List[List[float]] = []
-        for text in texts:
-            clean_text = text.strip() or " "
-            resp = self.client.models.embed_content(
-                model=self.model,
-                contents=clean_text,
-                config=types.EmbedContentConfig(output_dimensionality=self.dimension)
-            )
-            results.append(resp.embeddings[0].values)
+        if not texts:
+            return results
+
+        # Process in batches of 50 for ultra-fast vectorization
+        batch_size = 50
+        for i in range(0, len(texts), batch_size):
+            batch = [t.strip() or " " for t in texts[i:i + batch_size]]
+            try:
+                resp = self.client.models.embed_content(
+                    model=self.model,
+                    contents=batch,
+                    config=types.EmbedContentConfig(output_dimensionality=self.dimension)
+                )
+                for emb in resp.embeddings:
+                    results.append(emb.values)
+            except Exception:
+                # Fallback to individual chunk embedding if a batch call fails
+                for t in batch:
+                    r = self.client.models.embed_content(
+                        model=self.model,
+                        contents=t,
+                        config=types.EmbedContentConfig(output_dimensionality=self.dimension)
+                    )
+                    results.append(r.embeddings[0].values)
         return results
 
     def embed_query(self, text: str) -> List[float]:
